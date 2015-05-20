@@ -1,0 +1,45 @@
+'use strict';
+
+angular.module('pooIhmExemplesApp')
+	.factory('User', ['$http', function($http){
+		var obj = {
+			get: function(userId){
+				$http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + userId)
+					.success()
+					.error();
+				},
+
+			delete: function(userId){
+				$http.delete('http://poo-ihm-2015-rest.herokuapp.com/api/Users/' + userId)
+					.success()
+					.error(); 
+				},
+
+			all: function(successCB, fallCB){
+				$http.get('http://poo-ihm-2015-rest.herokuapp.com/api/Users/')
+					.success(function(Result){
+						if(Result.status === 'success') {
+         						var users = Result.data;
+							successCB(users);
+        					}
+					})
+					.error(function(error){
+						fallCB(error);
+					});
+				}
+
+			
+		};
+		return obj;
+}]);
+
+angular.module('pooIhmExemplesApp')
+	.controller('ABCtrl', ['$scope', 'User', function($scope, User){
+		User.get(function(data){
+			$scope.users = data.data;
+		}
+}]);
+
+
+
+

@@ -1,0 +1,75 @@
+'use strict';
+
+angular.module('pooIhmExemplesApp')
+    .controller('ProjectsCtrl', ['$scope', 'Project', function($scope, Project){
+        Project.all(function(project){
+            $scope.projects = project;
+        });
+
+        $scope.delete = function(project){
+            if(project.id !== ''){
+                Project.delete(project.id);
+            }
+        };
+
+        $scope.post = function(data){
+            Project.post(data);
+        };
+
+        $scope.put = function(project){
+            Project.put(project.id, project);
+        };
+        $scope.get = function(project){
+            Project.get(project.id);
+        };
+        $scope.reset = function(){  
+            $scope.project = {
+                name:'',
+                date:'',
+                from:'',
+                Tel:'',
+                address:'',
+                target_money:'',
+                description:''};  
+        };
+        (function () {
+                        
+                        var filterList = {
+                        
+                            init: function () {
+                            
+                                // MixItUp plugin
+                                // http://mixitup.io
+                                ('#portfoliolist').mixitup({
+                                    targetSelector: '.portfolio',
+                                    filterSelector: '.filter',
+                                    effects: ['fade'],
+                                    easing: 'snap',
+                                    // call the hover effect
+                                    onMixEnd: filterList.hoverEffect()
+                                });             
+                            
+                            },
+                            
+                            hoverEffect: function () {
+                            
+                                // Simple parallax effect
+                                ('#portfoliolist .portfolio').hover(
+                                    function () {
+                                        (this).find('.label').stop().animate({bottom: 0}, 200, 'easeOutQuad');
+                                        (this).find('img').stop().animate({top: -30}, 500, 'easeOutQuad');             
+                                    },
+                                    function () {
+                                        (this).find('.label').stop().animate({bottom: -40}, 200, 'easeInQuad');
+                                        (this).find('img').stop().animate({top: 0}, 300, 'easeOutQuad');                               
+                                    }       
+                                );              
+                            
+                            }
+                
+                        };
+                        
+                        // Run the show!
+                        filterList.init();  
+                    });   
+}]);

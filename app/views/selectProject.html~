@@ -1,0 +1,135 @@
+<div class="single">
+	<div class="container-fluid">
+		<div class="col-md-8 single-info">
+			<img src="../assets/images/{{projectSearch.id}}.{{projectSearch.id}}.jpg" class="img-responsive" alt=""/>
+			<div class="row">
+        		<div class="col-sm-12"><progressbar class="progress-striped active" max="projectSearch.target_money" value="projectSearch.current_money" type="danger"><i>{{projectSearch.current_money}} / {{projectSearch.target_money}}</i></progressbar>
+        		</div>
+			</div>
+			<div class="panel-heading">  
+    			<div class="panel-title">DONATE YOUR MONEY</div>  
+			</div>
+			<form  id="css_form" class = "form-1" novalidate name="myform" role="form" ng-controller="ProjectCtrl"> 
+    	<div class="form-group">
+        	<label for="inputName" class="col-md-2 control-label">Name：</label>
+        	<input type = "text" ng-model = "donor.name" placeholder="Write your name here" name="myName" required class="form-control" id="inputName" />
+        	<div class="alert alert-danger well-sm" ng-show="myform.myName.$error.required">This area cannot be empty!</div>
+    	</div>
+
+    	<div class="form-group">
+        	<label for="inputSurname" class="col-md-2 control-label">Surname：</label>
+        	<input type = "text" ng-model = "donor.surname" placeholder="Input your surname here" name="mySurname" required class="form-control" id="inputSurname" />
+        	<div class="alert alert-danger well-sm" ng-show="myform.mySurname.$error.required">This area cannot be empty!</div>
+    	</div>
+    	<div class="form-group">
+            <label for="inputEmail" class="col-md-6 control-label">Email:</label>
+            <input type = "email" ng-model = "donor.email" placeholder="email" name="myEmail" required class="form-control" id="inputEmail" />
+            <div class="alert alert-danger well-sm" ng-show="myform.myEmail.$error.required">The email cannot be empty!</div>
+            <div class="alert alert-danger well-sm" ng-show="myform.myEmail.$error.email">Bad email address!</div>
+        </div>
+        <div class="form-group">
+            <label for="inputAccount" class="col-md-6 control-label">Donate Money：</label>
+            <input type = "number" ng-model = "donor.donate_money" placeholder="Input your donate Money" min="1" max="{{needMoney}}"  name="myAccount" required class="form-control" id="inputAccount"/>
+            <div class="alert alert-danger well-sm" ng-show="myform.myAccount.$error.required">This area cannot be empty!</div>  
+            <div class="alert alert-danger well-sm" ng-show="myform.myAccount.$error.min || myform.myAccount.$error.max">The value is from 1 to {{needMoney}}!</div>
+            <div class="alert alert-danger well-sm" ng-show="myform.myAccount.$error.number">Need a number!</div>
+        </div>
+
+    	<div class="form-group">  
+        	<input class="btn btn-default" type = "submit" ng-disabled="!myform.$valid" ng-click = "postDonor(donor)" value = "Donate" />
+        	<input class="btn btn-default" type = "submit" ng-click = "resetDonor()" value = "RESET" />
+        </div>
+    </form>
+		</div>
+		<div class="col-md-4 single-into">
+			<div class="proje">
+				<div class="teuh">
+					<div class="project">
+							<h2>{{projectSearch.name}}</h2>
+							<p><strong>Creater:</strong>{{projectSearch.from}}</p>
+							<div class="clearfix"> </div>
+							<p><strong>Deadline:</strong>{{projectSearch.date}}</p>
+							<div class="clearfix"> </div>
+					</div>
+							<div class="clearfix"> </div>
+				</div>
+						<div class="nec">
+							<p>{{projectSearch.description}}</p> 
+						</div>
+						<ul class="eycon">
+							<li class="diicon"></li><p class="eyeion">Target: {{projectSearch.target_money}}$</p>
+							<div class="ments"><li class="mediicon"></li><p class="liion">Contact: {{projectSearch.address}}</p></div><div class="clearfix"> </div>
+						</ul>
+						<div class="clearfix"> </div>
+			</div>
+			<!--<div class="form-1">
+					<textarea rows="1000" cols="100" onfocus="if(this.value == 'Write comment here...') this.value='';" onblur="if(this.value == '') this.value='Write comment here...';">Write comment here...</textarea>
+					<input type="text" class="text" value="Name " onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
+					<input class="btn btn-default" type = "submit" ng-disabled="!myform.$valid" ng-click = "postCommit(commit)" value = "Send" />
+        			<input class="btn btn-default" type = "submit" ng-click = "resetCommit()" value = "RESET" />
+			</div>-->
+			<div class = "form-1">
+			<form id="css_form" novalidate name="myform" role="form" ng-controller="ProjectCtrl"> 
+				<textarea rows="1000" cols="100" type = "text" ng-model = "commit.contain" placeholder="Write your commit here..." name="myCommit" required class="form-control" id="inputCommit"/>
+        		<input type = "text" ng-model = "commit.from" placeholder="Name" name="myName" required class="form-control" id="inputName" /> 
+        		<input class="btn btn-default" type = "submit" ng-disabled="!myform.$valid" ng-click = "postCommit(commit)" value = "Send" />
+        		<input class="btn btn-default" type = "submit" ng-click = "resetCommit()" value = "RESET" />
+    	</form>
+    </div>
+    		<div class="form-1">
+    			<h3>COMMITS</h3>
+				<div class="socia-icons">
+					<div class="socia"></div>
+					<div class="soiac"></div>
+				</div>
+				<ul class="meet" >
+					<li class="mentu"></li>
+					<li class="teuh" ng-repeat="commit in commits">
+					<h4 ng-controller="ProjectCtrl">
+						<strong>{{commit.from}}</strong> {{commit.contain}}
+						<img src = "../assets/images/redcross.png" width = "10px" ng-click = "deleteCommit(commit)"/>
+
+					</h4>	
+					<div class="clearfix"> </div>
+				</ul>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="ght">
+			<div class="clearfix"> </div>
+			</div>
+			<div class="form-1">
+				<div class="teuh" ng-repeat="donor in donors">
+					<div class="project">
+							<h2>{{donor.surname}} {{donor.name}}</h2>
+							<p><strong>Donate:{{donor.donate_money}}$</strong>,{{donor.createdAt}}</p>
+							<div class="clearfix"> </div>
+					</div>
+							<div class="clearfix"> </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- <div class = "container">
+	<div class="panel-heading">  
+    	<div class="panel-title">WRITE YOUR COMMIT</div>  
+	</div> 
+	<form  id="css_form" class = "form-1" novalidate name="myform" role="form" ng-controller="ShowCtrl"> 
+    	<div class="form-group">
+        	<label for="inputCommit" class="col-md-2 control-label">Commit：</label>
+        	<input type = "text" ng-model = "commit.contain" placeholder="Write your commit here" name="myCommit" required class="form-control" id="inputCommit" />
+    	</div>
+
+    	<div class="form-group">
+        	<label for="inputName" class="col-md-2 control-label">Your name：</label>
+        	<input type = "text" ng-model = "commit.from" placeholder="Input your name here" name="myName" required class="form-control" id="inputName" />
+    	</div>
+    	<div class="form-group">  
+        	<input class="btn btn-default" type = "submit" ng-disabled="!myform.$valid" ng-click = "postCommit(commit)" value = "Send" />
+        	<input class="btn btn-default" type = "submit" ng-click = "resetCommit()" value = "RESET" />
+        </div>
+    </form>
+</div> -->
